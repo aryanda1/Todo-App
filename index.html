@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+    <meta name="description" content="A feature-rich todo app with light and dark themes. Organize your tasks with draggable todo items. Switch between different views for all tasks, active tasks, and completed tasks. Stay organized and productive with this versatile todo app.">
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+
+    <title>Frontend Mentor | Todo app</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="light">
+    <main>
+      <picture>
+        <source media="(min-width: 700px)" srcset="images/bg-desktop-dark.jpg">
+        <img class="background hidden" src="images/bg-mobile-dark.jpg" alt="background">
+      </picture>
+      <picture>
+        <source media="(min-width: 700px)" srcset="images/bg-desktop-light.jpg">
+        <img class="background" src="images/bg-mobile-light.jpg" alt="background">
+      </picture>
+      <div class="container">
+        <div class="header">
+          <h1>TODO</h1>
+          <button>
+            <img src="images/icon-sun.svg" alt="sun" class="hidden" />
+            <img src="images/icon-moon.svg" alt="moon" />
+          </button>
+        </div>
+        <div class="input">
+          <label for="newTodo"
+            ><input id="newTodo" type="checkbox" /><span></span
+          ></label>
+          <input
+            type="text"
+            class="newTodoInput"
+            placeholder="Create a new todo..."
+          />
+        </div>
+        <div class="list"></div>
+        <div class="footer">
+          <p class="activeCount">5 items left</p>
+          <div class="button">
+            <button id="all" class="active">All</button>
+            <button id="active">Active</button>
+            <button id="completed">Completed</button>
+          </div>
+          <button id="clearBtn">Clear Completed</button>
+        </div>
+      </div>
+    </main>
+  </body>
+  <script src="main.js"></script>
+</html>
