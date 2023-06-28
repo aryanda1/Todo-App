@@ -45,6 +45,10 @@ todos.forEach((todo) => {
 
 updateCount();
 
+function focusInput(){
+  newTodoInput.focus();
+}
+
 function updateStyles(event) {
   event.preventDefault();//preventing default checking of checkbox so that it can be checked by event listener of its parent parent, i.,e li
   event.stopPropagation();
