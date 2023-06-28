@@ -28,39 +28,48 @@ if (localStorage.getItem("AllTodos")) {
 
 todos.forEach((todo) => {
   itemsLeft += !todo.checked;
-  console.log(itemsLeft);
   const li = document.createElement("li");
   li.draggable = true;
   li.className = "item";
   li.innerHTML = `<label for="${todo.id}"
-  ><input type="checkbox" onchange="updateStyles(this)" id="${todo.id}" ${
+  ><input type="checkbox" onclick="updateStyles(event)" id="${todo.id}" ${
     todo.checked ? "checked" : ""
   }><span></span></label>
   <p class=${todo.checked ? "checked" : ""}>${todo.text}</p>
-    <button onclick="deleteItem(this)" id="dltBtn"><img src="images/icon-cross.svg" alt="cross" /></button>
+    <button onclick="deleteItem(event)" id="dltBtn"><img src="images/icon-cross.svg" alt="cross" /></button>
     `;
+  li.addEventListener("click", clickHandlerItem);
   addEventsDragAndDrop(li);
   document.querySelector(".list").append(li);
 });
 
 updateCount();
 
-function updateStyles(input) {
+function updateStyles(event) {
+  event.preventDefault();//preventing default checking of checkbox so that it can be checked by event listener of its parent parent, i.,e li
+  event.stopPropagation();
+}
+
+function clickHandlerItem(e) {
+  const li = (e.currentTarget);
+  const input = li.firstElementChild.firstElementChild;
   const listItem = todos.find((todo) => todo.id === input.id);
+  input.checked = !input.checked;
   listItem.checked = input.checked;
   if (
     (previousView == "active" && input.checked) ||
     (previousView == "complete" && !input.checked)
   )
-    input.parentNode.parentNode.classList.add("hidden");
+    li.classList.add("hidden");
   itemsLeft += input.checked ? -1 : 1;
   updateCount();
   const p = input.parentNode.nextElementSibling;
   input.checked ? p.classList.add("checked") : p.classList.remove("checked");
 }
 
-function deleteItem(button) {
-  console.log(button);
+function deleteItem(event) {
+  event.stopPropagation();
+  const button = event.currentTarget;
   const input = button.parentNode.firstElementChild.firstElementChild;
   itemsLeft -= !input.checked;
   todos = todos.filter((todo) => todo.id !== input.id);
@@ -84,15 +93,16 @@ newTodoInput.addEventListener("keydown", (e) => {
   if (e.keyCode === 13 && newTodoInput.value !== "") {
     itemsLeft += !newTodoCheck.checked;
     const li = document.createElement("li");
+    li.addEventListener("click", clickHandlerItem);
     li.draggable = true;
     const randId = generateRandomId();
     li.className = "item";
     li.innerHTML = `<label for="${randId}"
-    ><input type="checkbox" onchange="updateStyles(this)" id="${randId}" ${
+    ><input type="checkbox" onclick="updateStyles(event)" id="${randId}" ${
       newTodoCheck.checked ? "checked" : ""
     }><span></span></label>
     <p class=${newTodoCheck.checked ? "checked" : ""}>${newTodoInput.value}</p>
-    <button onclick="deleteItem(this)" id="dltBtn"><img src="images/icon-cross.svg" alt="cross" /></button>
+    <button onclick="deleteItem(event)" id="dltBtn"><img src="images/icon-cross.svg" alt="cross" /></button>
     `;
     addEventsDragAndDrop(li);
     todos.unshift({
@@ -155,7 +165,7 @@ completedBtn.addEventListener("click", () => {
     });
   }
 });
- 
+
 clearBtn.addEventListener("click", () => {
   const items = document.querySelectorAll(".item");
   items.forEach((item) => {
@@ -210,7 +220,6 @@ function dragDrop(e) {
 
     dragSrcEl.innerHTML = this.innerHTML;
     this.innerHTML = e.dataTransfer.getData("text/html");
-    console.log(todos);
   }
   return false;
 }

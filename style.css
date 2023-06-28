@@ -113,18 +113,18 @@ span {
   transition: 0.3s;
 }
 
-[type="checkbox"] + span:hover {
+.item:hover span,label:hover span {
   border-radius: 50em;
   border: 2px solid transparent;
 }
 
-.dark [type="checkbox"] + span:hover {
+.dark .item:hover span,.dark label:hover span {
   background: linear-gradient(hsl(235, 24%, 19%), hsl(235, 24%, 19%))
       padding-box,
     linear-gradient(hsl(192, 100%, 67%), hsl(280, 87%, 65%)) border-box;
 }
 
-.light [type="checkbox"] + span:hover {
+.light .item:hover span,.light label:hover span {
   background: linear-gradient(white, white) padding-box,
     linear-gradient(hsl(192, 100%, 67%), hsl(280, 87%, 65%)) border-box;
 }
@@ -328,11 +328,11 @@ body,.input,.input input[type="text"]::placeholder,span,.list,.item,.checked,.fo
     transition: 0.3s;
 }
 
-.item:hover:after {
+/* .item:hover:after {
   opacity: 1;
   transform: translate(0);
 }
- 
+  */
 .over {
   transform: scale(1.1, 1.1);
 }
