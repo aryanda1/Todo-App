@@ -36,7 +36,7 @@ todos.forEach((todo) => {
     todo.checked ? "checked" : ""
   }><span></span></label>
   <p class=${todo.checked ? "checked" : ""}>${todo.text}</p>
-    <button onclick="deleteItem(event)" id="dltBtn"><img src="images/icon-cross.svg" alt="cross" /></button>
+    <button onclick="deleteItem(event)"><img src="images/icon-cross.svg" alt="cross" /></button>
     `;
   li.addEventListener("click", clickHandlerItem);
   addEventsDragAndDrop(li);
@@ -104,7 +104,7 @@ newTodoInput.addEventListener("keydown", (e) => {
       newTodoCheck.checked ? "checked" : ""
     }><span></span></label>
     <p class=${newTodoCheck.checked ? "checked" : ""}>${newTodoInput.value}</p>
-    <button onclick="deleteItem(event)" id="dltBtn"><img src="images/icon-cross.svg" alt="cross" /></button>
+    <button onclick="deleteItem(event)"><img src="images/icon-cross.svg" alt="cross" /></button>
     `;
     addEventsDragAndDrop(li);
     todos.unshift({
@@ -196,6 +196,7 @@ function dragStart(e) {
 }
 
 function dragEnter(e) {
+  if(dragSrcEl != this)
   this.classList.add("over");
 }
 
