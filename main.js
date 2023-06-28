@@ -51,10 +51,12 @@ function updateStyles(event) {
 }
 
 function clickHandlerItem(e) {
-  const li = (e.currentTarget);
+  const li = e.currentTarget;
   const input = li.firstElementChild.firstElementChild;
   const listItem = todos.find((todo) => todo.id === input.id);
   input.checked = !input.checked;
+  input.checked?input.setAttribute("checked", "checked"):input.removeAttribute("checked");
+
   listItem.checked = input.checked;
   if (
     (previousView == "active" && input.checked) ||
@@ -185,6 +187,7 @@ function updateCount() {
 }
 
 // drag and drop feature
+let dragSrcEl;
 function dragStart(e) {
   this.style.opacity = "0.4";
   dragSrcEl = this;
@@ -217,11 +220,9 @@ function dragDrop(e) {
     todos[prevIdx] = todos[curIdx];
     todos[curIdx] = prevVal;
     updateCount();
-
     dragSrcEl.innerHTML = this.innerHTML;
     this.innerHTML = e.dataTransfer.getData("text/html");
   }
-  return false;
 }
 
 function dragEnd(e) {
